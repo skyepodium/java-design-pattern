@@ -7,7 +7,8 @@
 
 3. build 메서드를 통해 파라미터로 인스턴스를 넘겨 상위 클래스의 생성자를 호출하고, 넣은 값만으로 상위 클래스의 인스턴스를 생성한다.
 
-# 1. 롬복 스타일
+# 1. Java
+### 1) 롬복 스타일
 ```java
 class Pasta {
     private String noodle;
@@ -67,7 +68,7 @@ class Main {
 }
 ```
 
-# 2. new 키워드 스타일
+### 2) new 키워드 스타일
 ```java
 class Pasta {
     private String noodle;
@@ -120,4 +121,49 @@ class Main {
                                 .build();
     }
 }
+```
+
+# 2. JavaScript
+```js
+class Pasta {
+    constructor(builder) {
+        if (builder) {
+            this.noodle = builder.noodle
+            this.source = builder.source
+            this.vegetables = builder.vegetables
+        }
+    }
+
+    static get builder() {
+        class Builder {
+
+            noodle(noodle) {
+                this.noodle = noodle
+                return this
+            }
+
+            source(source) {
+                this.source = source
+                return this
+            }
+
+            vegetables(vegetables) {
+                this.vegetables = vegetables;
+                return this;
+            }
+
+            build() {
+                return new Pasta(this);
+            }
+        }
+
+        return new Builder();
+    }
+}
+
+const pasta = Pasta.builder.noodle("noodle")
+                            .source("tomato")
+                            .vegetables("mushroom")
+                            .build()
+
 ```
